@@ -1,0 +1,84 @@
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 0.0001,
+        "min_lr": 8e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 1,
+        "batch_size_train": 32,
+        "batch_size_eval": 1,
+        "num_workers": 4,
+        "warmup_steps": 500,
+        "iters_per_epoch": 3000,
+        "seed": 42,
+        "output_dir": "output/vit_t5_stage1_pretrain",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 1,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "vit_t5",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "freeze_qformer": true,
+        "num_query_token": 32,
+        "t5_model": "/public/home/mswanghao/.cache/huggingface/hub/models--google--flan-t5-xl/snapshots/53fd1e22aa944eee1fd336f9aee8a437e01676ce",
+        "prompt": "",
+        "model_type": "pretrain_t5"
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "blip2_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "blip2_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "blip_caption"
+            },
+            "eval": {
+                "name": "blip_caption"
+            }
+        }
+    },
+    "datasets": {
+        "cc_sbu": {
+            "data_type": "images",
+            "build_info": {
+                "storage": "/public/home/mswanghao/cocodata/mscoco/{00011..00026}.tar"
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "blip2_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "blip_caption"
+                }
+            },
+            "sample_ratio": 14
+        }
+    }
+}

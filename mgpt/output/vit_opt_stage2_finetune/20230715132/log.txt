@@ -1,0 +1,176 @@
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 3e-05,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 1,
+        "iters_per_epoch": 3500,
+        "batch_size_train": 1,
+        "batch_size_eval": 1,
+        "num_workers": 4,
+        "warmup_steps": 200,
+        "seed": 42,
+        "output_dir": "output/vit_opt_stage2_finetune",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 4,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "vit_opt",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "freeze_qformer": true,
+        "num_query_token": 32,
+        "opt_model": "/public/home/mswanghao/.cache/huggingface/hub/models--facebook--opt-2.7b/snapshots/397f71a473a150c00f0fe3fc4a2f78ff3ccaf82d",
+        "prompt": "",
+        "model_type": "pretrain_opt",
+        "max_txt_len": 160,
+        "end_sym": "###",
+        "prompt_path": "prompts/alignment.txt",
+        "prompt_template": "###Human: {} ###Assistant: ",
+        "ckpt": "/public/home/mswanghao/project/MiniGPT-GPU-OPT/1.pth"
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "blip2_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "blip2_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "blip_caption"
+            },
+            "eval": {
+                "name": "blip_caption"
+            }
+        }
+    },
+    "datasets": {
+        "cc_sbu_align": {
+            "data_type": "images",
+            "build_info": {
+                "storage": "/public/home/mswanghao/project/MiniGPT-GPU-OPT/cc_sbu_align"
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "blip2_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "blip_caption"
+                }
+            }
+        }
+    }
+}
+{
+    "run": {
+        "task": "image_text_pretrain",
+        "lr_sched": "linear_warmup_cosine_lr",
+        "init_lr": 3e-05,
+        "min_lr": 1e-05,
+        "warmup_lr": 1e-06,
+        "weight_decay": 0.05,
+        "max_epoch": 1,
+        "iters_per_epoch": 3500,
+        "batch_size_train": 1,
+        "batch_size_eval": 1,
+        "num_workers": 4,
+        "warmup_steps": 200,
+        "seed": 42,
+        "output_dir": "output/vit_opt_stage2_finetune",
+        "amp": true,
+        "resume_ckpt_path": null,
+        "evaluate": false,
+        "train_splits": [
+            "train"
+        ],
+        "device": "cuda",
+        "world_size": 1,
+        "dist_url": "env://",
+        "distributed": true,
+        "rank": 0,
+        "gpu": 0,
+        "dist_backend": "nccl"
+    },
+    "model": {
+        "arch": "vit_opt",
+        "image_size": 224,
+        "drop_path_rate": 0,
+        "use_grad_checkpoint": false,
+        "vit_precision": "fp16",
+        "freeze_vit": true,
+        "freeze_qformer": true,
+        "num_query_token": 32,
+        "opt_model": "/public/home/mswanghao/.cache/huggingface/hub/models--facebook--opt-2.7b/snapshots/397f71a473a150c00f0fe3fc4a2f78ff3ccaf82d",
+        "prompt": "",
+        "model_type": "pretrain_opt",
+        "max_txt_len": 160,
+        "end_sym": "###",
+        "prompt_path": "prompts/alignment.txt",
+        "prompt_template": "###Human: {} ###Assistant: ",
+        "ckpt": "/public/home/mswanghao/project/MiniGPT-GPU-OPT/1.pth"
+    },
+    "preprocess": {
+        "vis_processor": {
+            "train": {
+                "name": "blip2_image_train",
+                "image_size": 224
+            },
+            "eval": {
+                "name": "blip2_image_eval",
+                "image_size": 224
+            }
+        },
+        "text_processor": {
+            "train": {
+                "name": "blip_caption"
+            },
+            "eval": {
+                "name": "blip_caption"
+            }
+        }
+    },
+    "datasets": {
+        "cc_sbu_align": {
+            "data_type": "images",
+            "build_info": {
+                "storage": "/public/home/mswanghao/project/MiniGPT-GPU-OPT/cc_sbu_align"
+            },
+            "vis_processor": {
+                "train": {
+                    "name": "blip2_image_train",
+                    "image_size": 224
+                }
+            },
+            "text_processor": {
+                "train": {
+                    "name": "blip_caption"
+                }
+            }
+        }
+    }
+}
